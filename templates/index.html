@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Web Sitesi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1 style="text-align: center; margin-top: 20px;">180315008 Ahmet Yiğit ŞAHİN</h1>
+    <div id="StackedColumnChartByProvience">
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var xData = {{ x_data | safe }};
+                var yDataMuharrem = {{ y_data_muharrem | safe }};
+                var yDataMeral = {{ y_data_meral | safe }};
+                var yDataRecep = {{ y_data_recep | safe }};
+                var yDataSelahattin = {{ y_data_selahattin | safe }};
+                var yDataTemel = {{ y_data_temel | safe }};
+                var yDataDogu = {{ y_data_dogu | safe }};
+    
+                var traceMuharrem = {
+                    x: xData,
+                    y: yDataMuharrem,
+                    type: 'bar',
+                    name: 'MUHARREM İNCE',
+                };
+                var traceMeral = {
+                    x: xData,
+                    y: yDataMeral,
+                    type: 'bar',
+                    name: 'MERAL AKŞENER'
+                };
+                var traceRecep = {
+                    x: xData,
+                    y: yDataRecep,
+                    type: 'bar',
+                    name: 'RECEP TAYYİP ERDOĞAN'
+                };
+                var traceSelahattin = {
+                    x: xData,
+                    y: yDataSelahattin,
+                    type: 'bar',
+                    name: 'SELAHATTİN DEMİRTAŞ'
+                };
+                var traceTemel = {
+                    x: xData,
+                    y: yDataTemel,
+                    type: 'bar',
+                    name: 'TEMEL KARAMOLLAOĞLU'
+                };
+                var traceDogu = {
+                    x: xData,
+                    y: yDataDogu,
+                    type: 'bar',
+                    name: 'DOĞU PERİNÇEK'
+                };
+    
+                var layout = {
+                    title: 'Election Results by Province',
+                    xaxis: {
+                        title: 'Name of Province'
+                    },
+                    yaxis: {
+                        title: 'Vote Count'
+                    },
+                    barmode: 'stack'
+                };
+    
+                var data = [traceMuharrem, traceMeral, traceRecep, traceSelahattin, traceTemel, traceDogu];
+    
+                Plotly.newPlot('StackedColumnChartByProvience', data, layout);
+            });
+        </script>
+    </div>
+
+    <div id="LineChartIlce">
+        <script>
+            // Flask'tan gelen verileri alıyoruz.
+            var x_data_line = {{ x_data_line | safe }};
+            var y_data_muharrem_line = {{ y_data_muharrem_line | safe }};
+            var y_data_meral_line = {{ y_data_meral_line | safe }};
+            var y_data_recep_line = {{ y_data_recep_line | safe }};
+            var y_data_selahattin_line = {{ y_data_selahattin_line | safe }};
+            var y_data_temel_line = {{ y_data_temel_line | safe }};
+            var y_data_dogu_line = {{ y_data_dogu_line | safe }};
+        
+            var trace1 = {
+                x: x_data_line,
+                y: y_data_muharrem_line,
+                mode: 'lines+markers',
+                name: 'MUHARREM İNCE',
+                type: 'scatter'
+            };
+        
+            var trace2 = {
+                x: x_data_line,
+                y: y_data_meral_line,
+                mode: 'lines+markers',
+                name: 'MERAL AKŞENER',
+                type: 'scatter'
+            };
+        
+            var trace3 = {
+                x: x_data_line,
+                y: y_data_recep_line,
+                mode: 'lines+markers',
+                name: 'RECEP TAYYİP ERDOĞAN',
+                type: 'scatter'
+            };
+        
+            var trace4 = {
+                x: x_data_line,
+                y: y_data_selahattin_line,
+                mode: 'lines+markers',
+                name: 'SELAHATTİN DEMİRTAŞ',
+                type: 'scatter'
+            };
+        
+            var trace5 = {
+                x: x_data_line,
+                y: y_data_temel_line,
+                mode: 'lines+markers',
+                name: 'TEMEL KARAMOLLAOĞLU',
+                type: 'scatter'
+            };
+        
+            var trace6 = {
+                x: x_data_line,
+                y: y_data_dogu_line,
+                mode: 'lines+markers',
+                name: 'DOĞU PERİNÇEK',
+                type: 'scatter'
+            };
+        
+            var data = [trace1, trace2, trace3, trace4, trace5, trace6];
+        
+            var layout = {
+                title: 'Line Chartb by District',
+                xaxis: {
+                    title: 'Name of District'
+                },
+                yaxis: {
+                    title: 'Vote Percentages'
+                }
+            };
+        
+            Plotly.newPlot('LineChartIlce', data, layout);
+        </script>
+    </div>
+    
+    <div id="myTableIl" style="margin-top: 150px;">
+        {{ data_table | safe }}
+    </div>
+</body>
+</html>
